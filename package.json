@@ -1,0 +1,29 @@
+{
+    "name": "haps",
+    "version": "0.1.0",
+    "description": "",
+    "scripts": {
+        "build": "npx prettier src --check && tsc && cp src/manifest.json dist/manifest.json && cp src/haps.css dist/haps.css && cp src/popup.html dist/popup.html",
+        "format": "npx prettier . --write"
+    },
+    "devDependencies": {
+        "@types/chrome": "^0.0.243"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/jessenmorten/haps.git"
+    },
+    "keywords": [],
+    "author": "Morten Jessen",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/jessenmorten/haps/issues"
+    },
+    "homepage": "https://github.com/jessenmorten/haps#readme",
+    "prettier": {
+        "tabWidth": 4,
+        "semi": true,
+        "singleQuote": false,
+        "trailingComma": "all"
+    }
+}

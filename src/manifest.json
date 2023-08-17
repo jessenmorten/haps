@@ -1,0 +1,16 @@
+{
+    "manifest_version": 3,
+    "version": "0.1",
+    "name": "Haps",
+    "description": "",
+    "action": {
+        "default_title": "Haps",
+        "default_popup": "popup.html"
+    },
+    "background": {
+        "type": "module",
+        "service_worker": "background.js"
+    },
+    "permissions": ["tabs", "scripting"],
+    "host_permissions": ["*://*/*"]
+}
