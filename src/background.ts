@@ -14,9 +14,6 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
             files: ["haps.css"],
         });
 
-        console.log(chrome);
-        console.log(chrome.action);
-
         await chrome.action.setBadgeText({
             text: "ON",
             tabId: tabId,
