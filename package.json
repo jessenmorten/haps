@@ -3,8 +3,8 @@
     "version": "0.1.0",
     "description": "",
     "scripts": {
-        "build": "npx prettier src --check && tsc && cp src/manifest.json dist/manifest.json && cp src/haps.css dist/haps.css && cp src/popup.html dist/popup.html",
-        "format": "npx prettier . --write"
+        "build": "npx prettier . --check && tsc && cp -va src/. dist/ && rm -v dist/*.ts",
+        "build:fix": "npx prettier . --write && tsc && cp -va src/. dist/ && rm -v dist/*.ts"
     },
     "devDependencies": {
         "@types/chrome": "^0.0.243"
