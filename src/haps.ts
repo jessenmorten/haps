@@ -27,7 +27,7 @@
                     e.preventDefault();
                     document.body.classList.remove("haps");
                     const content = element.textContent || "";
-                    navigator.clipboard.writeText(content);
+                    navigator.clipboard.writeText(content.trim());
                 }
             });
         }
