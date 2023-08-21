@@ -1,39 +1,47 @@
-const elements = [
-    ...document.querySelectorAll("p"),
-    ...document.querySelectorAll("a"),
-    ...document.querySelectorAll("button"),
-    ...document.querySelectorAll("span"),
-    ...document.querySelectorAll("h1"),
-    ...document.querySelectorAll("h2"),
-    ...document.querySelectorAll("h3"),
-    ...document.querySelectorAll("h4"),
-    ...document.querySelectorAll("h5"),
-    ...document.querySelectorAll("h6"),
-];
+(function () {
+    const w: Window &
+        typeof globalThis & { hapsIntervalId: number | undefined } =
+        window as any;
 
-for (let i = 0; i < elements.length; i++) {
-    const element = elements[i];
+    if (w.hapsIntervalId) {
+        clearInterval(w.hapsIntervalId);
+        return;
+    }
 
-    element.classList.add("hapsable");
+    w.hapsIntervalId = setInterval(() => {
+        const elements = [...document.querySelectorAll("a")];
 
-    element.addEventListener("click", (e) => {
-        if (document.body.classList.contains("haps")) {
-            e.preventDefault();
-            document.body.classList.remove("haps");
+        for (let i = 0; i < elements.length; i++) {
+            const element = elements[i];
             const content = element.textContent || "";
-            navigator.clipboard.writeText(content);
+            const skip =
+                element.classList.contains("hapsable") || content.trim() === "";
+
+            if (skip) {
+                continue;
+            }
+
+            element.classList.add("hapsable");
+            element.addEventListener("click", (e) => {
+                if (document.body.classList.contains("haps")) {
+                    e.preventDefault();
+                    document.body.classList.remove("haps");
+                    const content = element.textContent || "";
+                    navigator.clipboard.writeText(content);
+                }
+            });
         }
-    });
-}
 
-document.addEventListener("keydown", (e) => {
-    if (e.altKey) {
-        document.body.classList.add("haps");
-    }
-});
+        document.addEventListener("keydown", (e) => {
+            if (e.ctrlKey && e.altKey) {
+                document.body.classList.add("haps");
+            }
+        });
 
-document.addEventListener("keyup", (e) => {
-    if (!e.altKey) {
-        document.body.classList.remove("haps");
-    }
-});
+        document.addEventListener("keyup", (e) => {
+            if (!e.ctrlKey || !e.altKey) {
+                document.body.classList.remove("haps");
+            }
+        });
+    }, 1000);
+})();
