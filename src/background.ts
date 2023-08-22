@@ -18,5 +18,10 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
             text: "ON",
             tabId: tabId,
         });
+
+        await chrome.action.setBadgeBackgroundColor({
+            color: "#3dd25f",
+            tabId: tabId,
+        });
     }
 });
