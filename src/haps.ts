@@ -1,18 +1,31 @@
-console.info("Haps injected");
+if ((window as any).hapsInjected) {
+    // TODO: Avoid throwing error
+    throw new Error("Haps already injected");
+} else {
+    (window as any).hapsInjected = true;
+    console.info("Haps injected");
+}
 
 function HapsInit() {
     const elements = [...document.querySelectorAll("a")];
+    let newElements = 0;
+    let oldElements = 0;
+    let skippedElements = 0;
 
     for (let i = 0; i < elements.length; i++) {
         const element = elements[i];
-        const content = element.textContent || "";
-        const skip =
-            element.classList.contains("hapsable") || content.trim() === "";
 
-        if (skip) {
+        if (element.classList.contains("hapsable")) {
+            oldElements++;
             continue;
         }
 
+        if (!element.textContent) {
+            skippedElements++;
+            continue;
+        }
+
+        newElements++;
         element.classList.add("hapsable");
         element.addEventListener("click", (e) => {
             if (document.body.classList.contains("haps")) {
@@ -24,30 +37,20 @@ function HapsInit() {
         });
     }
 
-    document.addEventListener("keydown", (e) => {
-        if (e.ctrlKey && e.altKey) {
-            document.body.classList.add("haps");
-        }
-    });
-
-    document.addEventListener("keyup", (e) => {
-        if (!e.ctrlKey || !e.altKey) {
-            document.body.classList.remove("haps");
-        }
-    });
+    console.info(
+        `Haps: ${newElements} new elements, ${oldElements} old elements, ${skippedElements} skipped elements`,
+    );
 }
 
 document.addEventListener("keydown", (e) => {
-    const w: Window &
-        typeof globalThis & {
-            hapsInitiated: boolean | undefined;
-        } = window as any;
-
     if (e.ctrlKey && e.altKey && !e.repeat) {
-        if (!w.hapsInitiated) {
-            w.hapsInitiated = true;
-            HapsInit();
-            console.info("Haps initiated");
-        }
+        document.body.classList.add("haps");
+        HapsInit();
+    }
+});
+
+document.addEventListener("keyup", (e) => {
+    if (!e.ctrlKey || !e.altKey) {
+        document.body.classList.remove("haps");
     }
 });
