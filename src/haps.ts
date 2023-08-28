@@ -3,7 +3,10 @@ if (!(window as any).hapsInjected) {
     console.info("Haps injected");
 
     function HapsInit() {
-        const elements = [...document.querySelectorAll("a")];
+        const elements = [
+            ...document.querySelectorAll("a"),
+            ...document.querySelectorAll("button"),
+        ];
         let newElements = 0;
         let oldElements = 0;
         let skippedElements = 0;
