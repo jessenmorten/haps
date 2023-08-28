@@ -3,8 +3,9 @@
     "version": "0.1.0",
     "description": "",
     "scripts": {
-        "build": "npx prettier . --check && tsc && cp -va src/. dist/ && rm -v dist/*.ts",
-        "build:fix": "npx prettier . --write && tsc && cp -va src/. dist/ && rm -v dist/*.ts"
+        "build": "tsc && cp -va src/. dist/ && rm -v dist/*.ts",
+        "lint": "npx prettier . --check",
+        "format": "npx prettier . --write"
     },
     "devDependencies": {
         "@types/chrome": "^0.0.243"
