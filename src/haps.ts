@@ -19,7 +19,11 @@ if (!(window as any).hapsInjected) {
                 continue;
             }
 
-            if (!element.textContent) {
+            const skip =
+                !element.textContent ||
+                !element.textContent.trim().match(/[a-zA-Z]/);
+
+            if (skip) {
                 skippedElements++;
                 continue;
             }
