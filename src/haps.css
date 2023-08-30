@@ -1,3 +1,7 @@
 body.haps .hapsable {
     text-decoration: underline #3dd25f 2px wavy !important;
 }
+
+body.haps .hapsable:hover {
+    text-decoration: underline #03a9f4 2px wavy !important;
+}
