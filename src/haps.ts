@@ -2,10 +2,21 @@ if (!(window as any).hapsInjected) {
     (window as any).hapsInjected = true;
     console.info("Haps injected");
 
+    function getContent(element: Element): string {
+        const e = element as unknown as {
+            textContent?: string;
+            value?: string;
+        };
+        const content = e.textContent || e.value || "";
+        return content.trim();
+    }
+
     function HapsInit() {
         const elements = [
             ...document.querySelectorAll("a"),
             ...document.querySelectorAll("button"),
+            ...document.querySelectorAll(`input[type="submit"]`),
+            ...document.querySelectorAll(`input[type="button"]`),
         ];
         let newElements = 0;
         let oldElements = 0;
@@ -19,11 +30,7 @@ if (!(window as any).hapsInjected) {
                 continue;
             }
 
-            const skip =
-                !element.textContent ||
-                !element.textContent.trim().match(/[a-zA-Z]/);
-
-            if (skip) {
+            if (!getContent(element).match(/[a-zA-Z]/)) {
                 skippedElements++;
                 continue;
             }
@@ -34,8 +41,7 @@ if (!(window as any).hapsInjected) {
                 if (document.body.classList.contains("haps")) {
                     e.preventDefault();
                     document.body.classList.remove("haps");
-                    const content = element.textContent || "";
-                    navigator.clipboard.writeText(content.trim());
+                    navigator.clipboard.writeText(getContent(element));
                 }
             });
         }
