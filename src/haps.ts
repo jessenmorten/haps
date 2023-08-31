@@ -11,7 +11,7 @@ if (!(window as any).hapsInjected) {
         return content.trim();
     }
 
-    function HapsInit() {
+    function findElements() {
         const elements = [
             ...document.querySelectorAll("a"),
             ...document.querySelectorAll("button"),
@@ -54,7 +54,7 @@ if (!(window as any).hapsInjected) {
     document.addEventListener("keydown", (e) => {
         if (e.ctrlKey && e.altKey && !e.repeat) {
             document.body.classList.add("haps");
-            HapsInit();
+            findElements();
         }
     });
 
