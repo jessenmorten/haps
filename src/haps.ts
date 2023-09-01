@@ -11,6 +11,16 @@ if (!(window as any).hapsInjected) {
         return content.trim();
     }
 
+    function toast(content: string) {
+        const toast = document.createElement("div");
+        toast.classList.add("haps-toast");
+        toast.textContent = `🐊 Copied: '${content}'`;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.classList.add("show"), 100);
+        setTimeout(() => toast.classList.remove("show"), 3000);
+        setTimeout(() => toast.remove(), 3300);
+    }
+
     function findElements() {
         const elements = [
             ...document.querySelectorAll("a"),
@@ -41,7 +51,9 @@ if (!(window as any).hapsInjected) {
                 if (document.body.classList.contains("haps")) {
                     e.preventDefault();
                     document.body.classList.remove("haps");
-                    navigator.clipboard.writeText(getContent(element));
+                    const content = getContent(element);
+                    navigator.clipboard.writeText(content);
+                    toast(content);
                 }
             });
         }

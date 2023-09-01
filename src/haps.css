@@ -5,3 +5,27 @@ body.haps .hapsable {
 body.haps .hapsable:hover {
     text-decoration: underline #03a9f4 2px wavy !important;
 }
+
+.haps-toast {
+    position: fixed;
+    z-index: 999999;
+    top: 0;
+    right: 10px;
+    padding: 10px;
+    background: #202124;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 0 0 10px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    color: #ffffff;
+    font-family: sans-serif;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    transform: translateY(-100%);
+}
+
+.haps-toast.show {
+    transform: translateY(0);
+}
