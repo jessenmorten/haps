@@ -11,7 +11,7 @@ if (!(window as any).hapsInjected) {
         return content.trim();
     }
 
-    function toast(element:Element, content: string) {
+    function toast(element: Element, content: string) {
         const toast = document.createElement("div");
         toast.classList.add("haps-toast", "show");
         toast.textContent = `🐊 ${content} 🐊`;
