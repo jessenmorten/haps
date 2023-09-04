@@ -11,14 +11,15 @@ if (!(window as any).hapsInjected) {
         return content.trim();
     }
 
-    function toast(content: string) {
+    function toast(element:Element, content: string) {
         const toast = document.createElement("div");
-        toast.classList.add("haps-toast");
-        toast.textContent = `🐊 Copied: '${content}'`;
+        toast.classList.add("haps-toast", "show");
+        toast.textContent = `🐊 ${content} 🐊`;
+        toast.style.top = `${element.getBoundingClientRect().top - 35}px`;
+        toast.style.left = `${element.getBoundingClientRect().left}px`;
         document.body.appendChild(toast);
-        setTimeout(() => toast.classList.add("show"), 100);
-        setTimeout(() => toast.classList.remove("show"), 3000);
-        setTimeout(() => toast.remove(), 3300);
+        setTimeout(() => toast.classList.remove("show"), 2000);
+        setTimeout(() => toast.remove(), 2300);
     }
 
     function findElements() {
@@ -53,7 +54,7 @@ if (!(window as any).hapsInjected) {
                     document.body.classList.remove("haps");
                     const content = getContent(element);
                     navigator.clipboard.writeText(content);
-                    toast(content);
+                    toast(element, content);
                 }
             });
         }
