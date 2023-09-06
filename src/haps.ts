@@ -50,6 +50,7 @@ if (!(window as any).hapsInjected) {
             element.classList.add("hapsable");
             element.addEventListener("click", (e) => {
                 if (document.body.classList.contains("haps")) {
+                    e.stopImmediatePropagation();
                     e.preventDefault();
                     document.body.classList.remove("haps");
                     const content = getContent(element);
