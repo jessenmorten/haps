@@ -11,10 +11,10 @@ if (!(window as any).hapsInjected) {
         return content.trim();
     }
 
-    function toast(element: Element, content: string) {
+    function toast(element: Element, message: string) {
         const toast = document.createElement("div");
         toast.classList.add("haps-toast", "show");
-        toast.textContent = `🐊 ${content} 🐊`;
+        toast.textContent = message;
         toast.style.top = `${element.getBoundingClientRect().top - 35}px`;
         toast.style.left = `${element.getBoundingClientRect().left}px`;
         document.body.appendChild(toast);
@@ -53,9 +53,14 @@ if (!(window as any).hapsInjected) {
                     e.stopImmediatePropagation();
                     e.preventDefault();
                     document.body.classList.remove("haps");
-                    const content = getContent(element);
-                    navigator.clipboard.writeText(content);
-                    toast(element, content);
+
+                    if (navigator.clipboard === undefined) {
+                        toast(element, "⚠️ Haps only works on secure sites ⚠️");
+                    } else {
+                        const content = getContent(element);
+                        navigator.clipboard.writeText(content);
+                        toast(element, `🐊 ${content} 🐊`);
+                    }
                 }
             });
         }
